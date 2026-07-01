@@ -13,7 +13,7 @@ output: pdf_document
 ---
 
 # 1. GitHub Repository Link
-**GitHub Repository URL**: ***(https://github.com/otitogauy/Student-Course-Management-System)***
+**GitHub Repository URL**: ***(https://github.com/Razznik99/School-Course-Management-System.git)***
 
 ---
 

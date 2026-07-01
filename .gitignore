@@ -6,6 +6,20 @@ dist/
 wheels/
 *.egg-info
 
-# Virtual environments
+# Python environment
 .venv
+.python-version
+
+# Database
 .db
+.json
+courses.db
+courses.json
+
+
+# PDF Files
+*.pdf
+
+# Reports
+submission_report.md
+submission_report.pdf
