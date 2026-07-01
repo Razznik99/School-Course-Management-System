@@ -1,0 +1,7 @@
+[project]
+name = "School Course Management System"
+version = "0.1.0"
+description = "This is a light weight Course Management System designed for School/Universities/Academies and other educational institutions."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []

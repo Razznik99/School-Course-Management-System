@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Course Management System</title>
+    <!-- Google Font for Premium Typography, no Roboto Nonsense -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="glass-bg"></div>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo-container">
+                <!-- Logo - I couldn't find an SVG of your logo so here is a Book logo designed by Gemini -->
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                </svg>
+                <div class="logo-text">
+                    <!-- I'm not creative so im using your name for the name of the school ;)-->
+                    <h1>Miva Academy</h1>
+                    <p>Course Management Hub</p>
+                </div>
+            </div>
+            <div class="header-badge">
+                <span class="status-indicator-dot"></span>
+                <span>Database Synced</span>
+            </div>
+        </header>
+
+        <!-- KPI / Summary Cards -->
+        <section class="summary-section">
+            <div class="kpi-card" id="kpi-total-courses">
+                <div class="kpi-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <div class="kpi-details">
+                    <h3>Registered Courses</h3>
+                    <span class="kpi-value" id="total-courses-count">0</span>
+                </div>
+            </div>
+            <div class="kpi-card highlight" id="kpi-total-units">
+                <div class="kpi-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                    </svg>
+                </div>
+                <div class="kpi-details">
+                    <h3>Total Semester Units</h3>
+                    <span class="kpi-value" id="total-units-count">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Dashboard Layout -->
+        <main class="dashboard-grid">
+            <!-- Left Panel: Forms & Actions -->
+            <div class="sidebar-panel">
+                <!-- Add Course Card -->
+                <div class="glass-card">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            class="card-title-icon">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        <h2>Add New Course</h2>
+                    </div>
+                    <form id="add-course-form" class="dashboard-form">
+                        <div class="form-group">
+                            <label for="course-code">Course Code</label>
+                            <input type="text" id="course-code" placeholder="e.g. COS201" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-title">Course Title</label>
+                            <input type="text" id="course-title" placeholder="e.g. Programming I" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course-units">Credit Units</label>
+                            <input type="number" id="course-units" min="1" max="10" placeholder="e.g. 3" required>
+                        </div>
+                        <button type="submit" class="btn primary-btn">
+                            <span>Register Course</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                class="btn-arrow">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Search Course Card -->
+                <div class="glass-card">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            class="card-title-icon">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <h2>Search Course</h2>
+                    </div>
+                    <div class="dashboard-form">
+                        <div class="search-input-wrapper">
+                            <input type="text" id="search-code" placeholder="Enter course code...">
+                            <button id="search-btn" class="btn icon-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="search-result" class="search-result-box hidden">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Persistence Card -->
+                <div class="glass-card">
+                    <div class="card-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            class="card-title-icon">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        <h2>File Persistence</h2>
+                    </div>
+                    <div class="file-operations">
+                        <div class="form-group">
+                            <label for="filename-input">Filename</label>
+                            <input type="text" id="filename-input" value="courses.json" placeholder="courses.json">
+                        </div>
+                        <div class="btn-group">
+                            <button id="save-btn" class="btn secondary-btn flex-1">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                </svg>
+                                <span>Save</span>
+                            </button>
+                            <button id="load-btn" class="btn secondary-btn flex-1">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
+                                </svg>
+                                <span>Load</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Course Directory -->
+            <div class="main-panel">
+                <div class="glass-card courses-table-card">
+                    <div class="card-header space-between">
+                        <div class="flex-align-center gap-10">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                class="card-title-icon">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                </path>
+                            </svg>
+                            <h2>Course Directory</h2>
+                        </div>
+                        <span class="badge" id="course-count-badge">0 items</span>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="courses-table" id="courses-table">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Course Title</th>
+                                    <th>Units</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-tbody">
+                                <!-- Populated dynamically by JS -->
+                                <tr class="empty-state-row">
+                                    <td colspan="4">
+                                        <div class="empty-state">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.5">
+                                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                            </svg>
+                                            <p>No courses registered yet.</p>
+                                            <span>Add a course above to get started.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div id="edit-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-card">
+            <div class="card-header space-between">
+                <div class="flex-align-center gap-10">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    <h2>Edit Course</h2>
+                </div>
+                <button id="close-modal-btn" class="btn-action close-btn" title="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="edit-course-form" class="dashboard-form">
+                <input type="hidden" id="edit-old-code">
+                <div class="form-group">
+                    <label for="edit-course-code">Course Code</label>
+                    <input type="text" id="edit-course-code" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-course-title">Course Title</label>
+                    <input type="text" id="edit-course-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-course-units">Credit Units</label>
+                    <input type="number" id="edit-course-units" min="1" max="10" required>
+                </div>
+                <div class="btn-group">
+                    <button type="button" id="cancel-edit-btn" class="btn secondary-btn flex-1">Cancel</button>
+                    <button type="submit" class="btn primary-btn flex-1">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-card confirm-modal">
+            <div class="card-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon error-icon" style="color: var(--error);">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <h2 style="color: var(--text-main);">Confirm Deletion</h2>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="delete-course-info"></strong>?</p>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">This action cannot be undone.</p>
+            </div>
+            <div class="btn-group">
+                <button id="cancel-delete-btn" class="btn secondary-btn flex-1">Cancel</button>
+                <button id="confirm-delete-btn" class="btn primary-btn flex-1" style="background: linear-gradient(135deg, var(--error) 0%, hsl(0, 84%, 50%) 100%); box-shadow: 0 4px 15px hsla(0, 84%, 60%, 0.3);">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast-notification hidden">
+        <span id="toast-message">Action completed successfully!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

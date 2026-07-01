@@ -1,0 +1,47 @@
+[
+    {
+        "course_code": "TEST101",
+        "course_title": "Integration Test Course",
+        "unit": 2
+    },
+    {
+        "course_code": "COS102",
+        "course_title": "Introduction to Programming",
+        "unit": 3
+    },
+    {
+        "course_code": "MTH101",
+        "course_title": "Calculus I",
+        "unit": 4
+    },
+    {
+        "course_code": "GNS101",
+        "course_title": "Communication Skills",
+        "unit": 2
+    },
+    {
+        "course_code": "PHY102",
+        "course_title": "General Physics II",
+        "unit": 3
+    },
+    {
+        "course_code": "COS201",
+        "course_title": "Computer Programming",
+        "unit": 3
+    },
+    {
+        "course_code": "T19450",
+        "course_title": "Integration Test Course",
+        "unit": 2
+    },
+    {
+        "course_code": "T19496",
+        "course_title": "Integration Test Course",
+        "unit": 2
+    },
+    {
+        "course_code": "T19843",
+        "course_title": "Integration Test Course",
+        "unit": 2
+    }
+]
